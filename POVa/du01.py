@@ -130,6 +130,10 @@ def video(videoFileName):
         # use np.random
         ## FILL
         #gauss = np.random.normal(0,1,img.size)
+        gauss = np.random.normal(0,5,frame.size)
+        gauss = gauss.reshape(frame.shape[0],frame.shape[1],frame.shape[2]).astype('uint8')
+        # Add the Gaussian noise to the image
+        frame = cv2.add(frame,gauss)
 
         # Add gamma correction.
         # y = x^1.2 -- the image to the power of 1.2
