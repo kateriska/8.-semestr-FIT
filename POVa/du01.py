@@ -29,13 +29,9 @@ def image(imageFileName):
 
     # Resize to width 400 and height 500 with bicubic interpolation.
     img = cv2.resize(img, (400,500), fx=400, fy=500, interpolation=cv2.INTER_CUBIC)
-    #cv2.imshow("Img", img)
     cv2.imwrite("church_resized.JPG", img)
-    #cv2.waitKey(0)
 
     # Print mean image color and standard deviation of each color channel
-    #mean_color_per_row = np.average(img, axis=0)
-    #mean_color = np.average(mean_color_per_row, axis=0)
     b = img[:,:,0]
     g = img[:,:,1]
     r = img[:,:,2]
@@ -44,34 +40,29 @@ def image(imageFileName):
     g_mean = np.mean(g)
     r_mean = np.mean(r)
 
-
     mean_values = list()
     mean_values.append(b_mean)
     mean_values.append(g_mean)
     mean_values.append(r_mean)
 
-    mean_values_np = np.asarray(mean_values)
-    print(mean_values)
-    print(mean_values_np)
-
     b_std = np.std(b)
     g_std = np.std(g)
     r_std = np.std(r)
-
 
     std_values = list()
     std_values.append(b_std)
     std_values.append(g_std)
     std_values.append(r_std)
-    print(std_values)
-
 
     print('Image mean and standard deviation' + str(mean_values) + ", " + str(std_values)) ## FILL
 
     # Fill horizontal rectangle with color 128.
     # Position x1=50,y1=120 and size width=200, height=50
     ## FILL
-    image = cv2.rectangle(img, (50,120), (250,170), 128, 2)
+    img_backup = img.copy()
+    img_backup2 = img.copy()
+
+    img = cv2.rectangle(img, (50,120), (250,170), 128, 2)
 
     # write result to file
     cv2.imwrite('rectangle.png', img)
@@ -80,19 +71,31 @@ def image(imageFileName):
     # The first column sould be black.
     # The rectangle should not be visible.
     ## FILL
-    print(img)
-    every_third_column = img[:, ::3]
-    img[every_third_column] = 0
+    cv2.imwrite('backup.png', img_backup)
+    top_half = img_backup.shape[0] / 2
+
+    for i in range(img_backup.shape[0]):
+        for j in range(img_backup.shape[1]):
+            if (j % 3 == 0 and i < top_half):
+                img_backup[i,j] = 0
 
 
     # write result to file
+    img = img_backup
     cv2.imwrite('striped.png', img)
 
     # Set all pixels with any a value of any collor channel lower than 100 to black (0,0,0).
     ## FILL
+    for i in range(img_backup2.shape[0]):
+        for j in range(img_backup2.shape[1]):
+            condition = np.any(img_backup2[i,j] < 100)
+            if (condition == True):
+                img_backup2[i,j] = 0
+
 
     #write result to file
-    #cv2.imwrite('clip.png', img)
+    img = img_backup2
+    cv2.imwrite('clip.png', img)
 
 
 def video(videoFileName):
@@ -129,7 +132,6 @@ def video(videoFileName):
         # Standard deviation should be 5.
         # use np.random
         ## FILL
-        #gauss = np.random.normal(0,1,img.size)
         gauss = np.random.normal(0,5,frame.size)
         gauss = gauss.reshape(frame.shape[0],frame.shape[1],frame.shape[2]).astype('uint8')
         # Add the Gaussian noise to the image
@@ -139,11 +141,23 @@ def video(videoFileName):
         # y = x^1.2 -- the image to the power of 1.2
         ## FILL
 
+        corrected_pixels = [((i / 255) ** (1/1.2)) * 255 for i in range(256)]
+        corrected_pixels = np.array(corrected_pixels, np.uint8)
+
+        frame = cv2.LUT(frame, corrected_pixels)
+
         # Dim blue color to half intensity.
         ## FILL
+        b = frame[:,:,0]
+        for i in range(frame.shape[0]):
+            for j in range(frame.shape[1]):
+                pixel_value = frame[i,j]
+                frame[i,j][2] = pixel_value[2] / 2
+
 
         # Invert colors.
         ## FILL
+        frame = cv2.bitwise_not(frame)
 
         # Display the processed frame.
         cv2.imshow("Output", frame)
