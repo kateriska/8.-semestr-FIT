@@ -67,7 +67,7 @@ def image(imageFileName):
     img_backup = img.copy()
     img_backup2 = img.copy()
 
-    img = cv2.rectangle(img, (50,120), (250,170), 128, 2)
+    img = cv2.rectangle(img, (50,120), (250,170), (128,128,128), 2)
 
     # write result to file
     cv2.imwrite('rectangle.png', img)
