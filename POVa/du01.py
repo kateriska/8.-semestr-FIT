@@ -19,7 +19,7 @@ def parseArguments():
 
 def image(imageFileName):
     # read image
-    img = cv2.imread("church.JPG")
+    img = cv2.imread(imageFileName)
     if img is None:
         print("Error: Unable to read image file", imageFileName)
         exit(-1)
@@ -29,32 +29,37 @@ def image(imageFileName):
 
     # Resize to width 400 and height 500 with bicubic interpolation.
     img = cv2.resize(img, (400,500), fx=400, fy=500, interpolation=cv2.INTER_CUBIC)
-    cv2.imwrite("church_resized.JPG", img)
 
     # Print mean image color and standard deviation of each color channel
     b = img[:,:,0]
     g = img[:,:,1]
     r = img[:,:,2]
 
+    std_mean_array = np.array([], dtype=np.float64)
+
     b_mean = np.mean(b)
     g_mean = np.mean(g)
     r_mean = np.mean(r)
-
-    mean_values = list()
-    mean_values.append(b_mean)
-    mean_values.append(g_mean)
-    mean_values.append(r_mean)
 
     b_std = np.std(b)
     g_std = np.std(g)
     r_std = np.std(r)
 
-    std_values = list()
-    std_values.append(b_std)
-    std_values.append(g_std)
-    std_values.append(r_std)
+    mean_values = np.array([], dtype=np.float64)
+    mean_values = np.append(b_mean, mean_values)
+    mean_values = np.append(g_mean, mean_values)
+    mean_values = np.append(r_mean, mean_values)
 
-    print('Image mean and standard deviation' + str(mean_values) + ", " + str(std_values)) ## FILL
+    std_values = np.array([], dtype=np.float64)
+    std_values = np.append(b_std, std_values)
+    std_values = np.append(g_std, std_values)
+    std_values = np.append(r_std, std_values)
+
+    std_mean_array = np.append(mean_values, std_mean_array)
+    std_mean_array = np.append(std_values, std_mean_array)
+    std_mean_array.shape = (2,3)
+
+    print('Image mean and standard deviation' + str(std_mean_array)) ## FILL
 
     # Fill horizontal rectangle with color 128.
     # Position x1=50,y1=120 and size width=200, height=50
@@ -71,7 +76,6 @@ def image(imageFileName):
     # The first column sould be black.
     # The rectangle should not be visible.
     ## FILL
-    cv2.imwrite('backup.png', img_backup)
     top_half = img_backup.shape[0] / 2
 
     for i in range(img_backup.shape[0]):
@@ -104,9 +108,7 @@ def video(videoFileName):
     frameRate = videoCapture.get(cv2.CAP_PROP_FPS)
     frame_width = int (videoCapture.get(3))
     frame_height = int (videoCapture.get(4))
-    print(frameRate)
-    print(frame_width)
-    print(frame_height)
+
     if not videoCapture.isOpened():
         print("Error: Unable to open video file for reading", videoFileName)
         exit(-1)
@@ -132,28 +134,26 @@ def video(videoFileName):
         # Standard deviation should be 5.
         # use np.random
         ## FILL
-        gauss = np.random.normal(0,5,frame.size)
-        gauss = gauss.reshape(frame.shape[0],frame.shape[1],frame.shape[2]).astype('uint8')
-        # Add the Gaussian noise to the image
-        frame = cv2.add(frame,gauss)
+        noise = np.random.normal(0,5,frame.size)
+        noise = noise.reshape(frame.shape[0],frame.shape[1],frame.shape[2]).astype('uint8')
+        frame = cv2.add(frame,noise)
 
         # Add gamma correction.
         # y = x^1.2 -- the image to the power of 1.2
         ## FILL
 
-        corrected_pixels = [((i / 255) ** (1/1.2)) * 255 for i in range(256)]
-        corrected_pixels = np.array(corrected_pixels, np.uint8)
+        gamma_corrected_pixels = [((i / 255) ** (1 / 1.2)) * 255 for i in range(256)]
+        gamma_corrected_pixels = np.array(gamma_corrected_pixels, np.uint8)
 
-        frame = cv2.LUT(frame, corrected_pixels)
+        frame = cv2.LUT(frame, gamma_corrected_pixels)
 
         # Dim blue color to half intensity.
         ## FILL
         b = frame[:,:,0]
-        for i in range(frame.shape[0]):
-            for j in range(frame.shape[1]):
-                pixel_value = frame[i,j]
-                frame[i,j][2] = pixel_value[2] / 2
 
+        b_dimmed = b / 2
+
+        frame[:,:,0] = b_dimmed
 
         # Invert colors.
         ## FILL
