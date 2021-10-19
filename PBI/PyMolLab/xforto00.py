@@ -7,6 +7,8 @@
 # https://www.youtube.com/watch?v=1wzVbIzqA2M&ab_channel=TajminStudio
 # https://proteopedia.org/wiki/index.php/Tutorial:Ramachandran_principle_and_phi_psi_angles
 
+# Results as GIFs - rotation of phi1 angle and psi1 angle here: https://drive.google.com/drive/folders/1s8OK6lzKOj2aR_1mr8T_8yVA4YmjTBje?usp=sharing
+
 import pymol
 
 def is_clockwise_rotation(angle):
@@ -99,11 +101,12 @@ cmd.select("psi1_atoms_to_rotate", "/prot1///ALA`1/O + resn GLY + resn LYS")
 phi1_angle = rotate_in_direction(clockwise_rotate_phi1, frames_count)
 psi1_angle = rotate_in_direction(clockwise_rotate_psi1, frames_count)
 
-
-#def process_frames(with_phi1, with_psi1, phi1_angle, psi1_angle, phi1_atoms_to_rotate, psi1_atoms_to_rotate, phi1_origin, psi1_origin, frames_count ):
+# !!! sometimes pymol throws an error for writing files to disc when there is lots of them - it is recommended to uncomment or comment and process these three calling of function separately
 # process only rotation with phi1 angle - frames saved in pymol folder with name "transformation_phi_no.png"
 process_frames(True, False, phi1_angle, None, "phi1_atoms_to_rotate", None, phi1_origin, None, frames_count)
+
 # process only rotation with psi1 angle - frames saved in pymol folder with name "transformation_psi_no.png"
 process_frames(False, True, None, psi1_angle, None, "psi1_atoms_to_rotate", None, psi1_origin, frames_count)
+
 # combined rotation with phi1 angle and then psi1 angle - frames saved in pymol folder with name "transformation_no.png"
-process_frames(True, True, phi1_angle, psi1_angle, "phi1_atoms_to_rotate", "psi1_atoms_to_rotate", phi1_origin, psi1_origin, frames_count)
+#process_frames(True, True, phi1_angle, psi1_angle, "phi1_atoms_to_rotate", "psi1_atoms_to_rotate", phi1_origin, psi1_origin, frames_count)
