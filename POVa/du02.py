@@ -256,14 +256,38 @@ def main():
         # The projections can be computed by summing mask pixel in horizontal lines respective vertical columns.
         # Use matplotlib.pyplot to plot the projection graphs.
         # Use subplot() to put both graphs into a single window.
-        '''
+
         import matplotlib.pyplot as plt
+
+        figure = plt.figure()
+        horizontal_projection_graph = figure.add_subplot(1,2,1)
+        vertical_projection_graph = figure.add_subplot(1,2,2)
         # FILL
-        horizontal_projection = \
-        vertical_projection = \
+        horizontal_projection = np.sum(binary_mask, axis=1)
+        height, width = binary_mask.shape
+        image_horizontal_projection = np.zeros((height, width, 3), np.uint8)
+
+        for row in range(height):
+            pixel_count_horizontal = int ((horizontal_projection[row] * width) / height)
+            cv2.line(image_horizontal_projection, (0,row), (pixel_count_horizontal,row), (255,255,255), 1)
+
+        horizontal_projection_graph.imshow(image_horizontal_projection)
+        horizontal_projection_graph.set_title("Horizontal Projection", fontsize=10)
+
+        vertical_projection = np.sum(binary_mask, axis=0)
+        image_vertical_projection = np.zeros((height, width, 3), np.uint8)
+
+        for col in range(width):
+            pixel_count_vertical = height - int (vertical_projection[col])
+            cv2.line(image_vertical_projection, (col, 0), (col, pixel_count_vertical), (255, 255, 255), 1)
+
+        vertical_projection_graph.imshow(image_vertical_projection)
+        vertical_projection_graph.set_title("Vertical Projection", fontsize=10)
+        #horizontal_projection = \
+        #vertical_projection = \
 
         plt.show()
-        '''
+
 
 
 
