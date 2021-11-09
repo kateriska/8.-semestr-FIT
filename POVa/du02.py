@@ -277,7 +277,7 @@ def main():
 
         for col in range(width):
             pixel_count_vertical = height - int (vertical_projection[col])
-            cv2.line(image_vertical_projection, (col, 0), (col, pixel_count_vertical), (255, 255, 255), 1)
+            cv2.line(image_vertical_projection, (col, 0), (col, pixel_count_vertical), (255,255,255), 1)
 
         vertical_projection_graph.imshow(image_vertical_projection)
         vertical_projection_graph.set_title("Vertical Projection", fontsize=10)
