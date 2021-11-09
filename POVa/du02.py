@@ -197,9 +197,7 @@ def main():
         # True/1 should be assigned to pixels with values cv2.GC_FGD and cv2.GC_PR_FGD.
         # Pixels with values cv2.cv2.GC_PR_BGD and cv2.GC_BGD should be assigned False/0.
         # FILL
-        print(segment_cb.mask)
         binary_mask = np.where(((segment_cb.mask == cv2.GC_FGD) | (segment_cb.mask == cv2.GC_PR_FGD) ), 1, 0)
-        print(binary_mask)
 
         # Add some random foreground noise pixels to binary_mask.
         positions0 = np.random.random_integers(binary_mask.shape[0] - 1, size=100)
