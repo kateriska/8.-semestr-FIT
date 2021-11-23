@@ -149,7 +149,7 @@ def main():
         loss= tensorflow.keras.losses.SparseCategoricalCrossentropy(),
         optimizer= tensorflow.keras.optimizers.Adam(learning_rate=0.001),
         metrics=[metrics.sparse_categorical_accuracy])
-    '''
+
     trnData, tstData, trnLabels, tstLabels = prepareData()
 
     # Show first 144 images from each set.
@@ -165,11 +165,12 @@ def main():
     # Train the network for 5 epochs on mini-batches of 64 images.
     model.fit(
         x=trnData, y=trnLabels,
-        batch_size=64, epochs=5, verbose=1,
+        batch_size=64, epochs=100, verbose=1,
         validation_data=(tstData, tstLabels), shuffle=True)
 
     # Save the network:
     model.save('model.h5')
+
 
     # Compute network predictions for the test set and show results.
     print('Compute model predictions for test images and display the results.')
@@ -179,7 +180,8 @@ def main():
     # Compute network (model) responses for dataToTest inputs.
     # This should produce a 2D tensor of the 10 class probabilites for each
     # image in dataToTest. The subsequent code displays the predicted classes.
-    classProb = model.# FILL
+    model.load_weights('model.h5')
+    classProb = model.predict(dataToTest)# FILL
 
     print('Prediction shape:', classProb.shape)
 
@@ -204,7 +206,8 @@ def main():
     print()
     print('Test loss', loss)
     print('Test accuracy', acc)
-    '''
+
+
 
 if __name__ == "__main__":
     main()
