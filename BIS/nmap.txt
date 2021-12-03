@@ -1,0 +1,989 @@
+[student@xforto00 ~]$ nmap -p 80 localhost
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 08:59 EST
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.0016s latency).
+Other addresses for localhost (not scanned): ::1
+
+PORT   STATE  SERVICE
+80/tcp closed http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.14 seconds
+[student@xforto00 ~]$ ls
+[student@xforto00 ~]$ ls -a
+.  ..  .bash_history  .bash_logout  .bash_profile  .bashrc  .lesshst  .ssh  .viminfo
+[student@xforto00 ~]$ ssh SV2
+Last login: Wed Nov 24 08:51:32 2021 from 192.168.10.91
+[Trust@SV2 ~]$ nmap -p 80 localhost
+-bash: nmap: command not found
+[Trust@SV2 ~]$ logout
+Connection to 192.168.10.166 closed.
+[student@xforto00 ~]$ ip addr show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp1s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:75:ce:61 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.10.152/24 brd 192.168.10.255 scope global dynamic noprefixroute enp1s0
+       valid_lft 3488sec preferred_lft 3488sec
+    inet6 fe80::5054:ff:fe75:ce61/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+[student@xforto00 ~]$ ip route
+default via 192.168.10.1 dev enp1s0 proto dhcp metric 100 
+192.168.10.0/24 dev enp1s0 proto kernel scope link src 192.168.10.152 metric 100 
+[student@xforto00 ~]$ nmap -p 80 192.168.10.152
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:09 EST
+Nmap scan report for xforto00 (192.168.10.152)
+Host is up (0.0012s latency).
+
+PORT   STATE  SERVICE
+80/tcp closed http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.10 seconds
+[student@xforto00 ~]$ nmap -p 21 192.168.10.152
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:11 EST
+Nmap scan report for xforto00 (192.168.10.152)
+Host is up (0.00027s latency).
+
+PORT   STATE  SERVICE
+21/tcp closed ftp
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+[student@xforto00 ~]$ nmap -p 20 192.168.10.152
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:11 EST
+Nmap scan report for xforto00 (192.168.10.152)
+Host is up (0.00074s latency).
+
+PORT   STATE  SERVICE
+20/tcp closed ftp-data
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+[student@xforto00 ~]$ nmap -sT -p- 192.168.10.152
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:13 EST
+Nmap scan report for xforto00 (192.168.10.152)
+Host is up (0.00038s latency).
+Not shown: 65533 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+5355/tcp open  llmnr
+
+Nmap done: 1 IP address (1 host up) scanned in 5.65 seconds
+[student@xforto00 ~]$ nmap -sU -p- 192.168.10.152
+You requested a scan type which requires root privileges.
+QUITTING!
+[student@xforto00 ~]$ nmap -sT -p- 192.168.10.152
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:14 EST
+Nmap scan report for xforto00 (192.168.10.152)
+Host is up (0.00037s latency).
+Not shown: 65533 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+5355/tcp open  llmnr
+
+Nmap done: 1 IP address (1 host up) scanned in 4.70 seconds
+[student@xforto00 ~]$ ls -a
+.  ..  .bash_history  .bash_logout  .bash_profile  .bashrc  .lesshst  .ssh  .viminfo
+[student@xforto00 ~]$ cd .shh
+-bash: cd: .shh: No such file or directory
+[student@xforto00 ~]$ cd .ssh
+[student@xforto00 .ssh]$ ls
+authorized_keys  config  known_hosts  known_hosts.old  SV2
+[student@xforto00 .ssh]$ cat config
+Host SV2
+	HostName 192.168.10.166
+	User Trust
+	IdentityFile ~/.ssh/SV2
+[student@xforto00 .ssh]$ nmap -sT -p- 192.168.10.166
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:18 EST
+Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
+Nmap done: 1 IP address (0 hosts up) scanned in 0.08 seconds
+[student@xforto00 .ssh]$ ping 192.168.10.166
+PING 192.168.10.166 (192.168.10.166) 56(84) bytes of data.
+64 bytes from 192.168.10.166: icmp_seq=1 ttl=64 time=0.961 ms
+64 bytes from 192.168.10.166: icmp_seq=2 ttl=64 time=0.574 ms
+64 bytes from 192.168.10.166: icmp_seq=3 ttl=64 time=0.418 ms
+64 bytes from 192.168.10.166: icmp_seq=4 ttl=64 time=0.425 ms
+64 bytes from 192.168.10.166: icmp_seq=5 ttl=64 time=0.411 ms
+64 bytes from 192.168.10.166: icmp_seq=6 ttl=64 time=0.640 ms
+64 bytes from 192.168.10.166: icmp_seq=7 ttl=64 time=0.423 ms
+^C
+--- 192.168.10.166 ping statistics ---
+7 packets transmitted, 7 received, 0% packet loss, time 6148ms
+rtt min/avg/max/mdev = 0.411/0.550/0.961/0.187 ms
+[student@xforto00 .ssh]$ nmap -sS -P0 192.168.10.166
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+You requested a scan type which requires root privileges.
+QUITTING!
+[student@xforto00 .ssh]$ nmap -sT -P0 192.168.10.166
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:23 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.61s latency).
+Not shown: 999 filtered ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 69.37 seconds
+[student@xforto00 .ssh]$ nmap -p 80 -P0 192.168.10.166
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:25 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.00056s latency).
+
+PORT   STATE    SERVICE
+80/tcp filtered http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+[student@xforto00 .ssh]$ nmap -sF -P0 192.168.10.166
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+You requested a scan type which requires root privileges.
+QUITTING!
+[student@xforto00 .ssh]$ nmap -P0 192.168.10.166
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:27 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.68s latency).
+Not shown: 999 filtered ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 70.18 seconds
+[student@xforto00 .ssh]$ nmap -P0 -p 1-200 192.168.10.166
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:30 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.66s latency).
+Not shown: 199 filtered ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 20.60 seconds
+[student@xforto00 .ssh]$ nmap -P0 192.168.10.166 -p1-2048
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:32 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.64s latency).
+Not shown: 2047 filtered ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 127.32 seconds
+[student@xforto00 .ssh]$ nmap -PN 192.168.10.166 -p1-2048
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:34 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.58s latency).
+Not shown: 2047 filtered ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 124.87 seconds
+[student@xforto00 .ssh]$ nmap -PN 192.168.10.166 -p 80
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:37 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.00062s latency).
+
+PORT   STATE    SERVICE
+80/tcp filtered http
+
+Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
+[student@xforto00 .ssh]$ nmap -PN 192.168.10.166 -p 21
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:37 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.00079s latency).
+
+PORT   STATE    SERVICE
+21/tcp filtered ftp
+
+Nmap done: 1 IP address (1 host up) scanned in 0.23 seconds
+[student@xforto00 .ssh]$ nmap -PN 192.168.10.166 -p 22
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:37 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.00070s latency).
+
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+[student@xforto00 .ssh]$ nmap -PN 192.168.10.166 -p 20
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:37 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.00071s latency).
+
+PORT   STATE    SERVICE
+20/tcp filtered ftp-data
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+[student@xforto00 .ssh]$ nmap -PN 192.168.10.166 -p 19
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:38 EST
+Nmap scan report for sv2 (192.168.10.166)
+Host is up (0.00078s latency).
+
+PORT   STATE    SERVICE
+19/tcp filtered chargen
+
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds
+[student@xforto00 .ssh]$ ssh SV2
+Last login: Wed Nov 24 09:36:02 2021 from 192.168.10.37
+[Trust@SV2 ~]$ ip route
+default via 192.168.10.1 dev enp1s0 proto dhcp metric 100 
+192.168.10.0/24 dev enp1s0 proto kernel scope link src 192.168.10.166 metric 100 
+[Trust@SV2 ~]$ curl 192.168.10.166:80
+curl: (7) Failed to connect to 192.168.10.166 port 80 after 0 ms: Connection refused
+[Trust@SV2 ~]$ curl 192.168.10.166:8080
+curl: (7) Failed to connect to 192.168.10.166 port 8080 after 2 ms: Connection refused
+[Trust@SV2 ~]$ curl localhost:80
+curl: (7) Failed to connect to localhost port 80 after 0 ms: Connection refused
+[Trust@SV2 ~]$ curl localhost:8080
+curl: (7) Failed to connect to localhost port 8080 after 0 ms: Connection refused
+[Trust@SV2 ~]$ curl localhost:80
+curl: (7) Failed to connect to localhost port 80 after 0 ms: Connection refused
+[Trust@SV2 ~]$ logout
+Connection to 192.168.10.166 closed.
+[student@xforto00 .ssh]$ curl 192.168.10.166:80
+curl: (7) Failed to connect to 192.168.10.166 port 80 after 0 ms: No route to host
+[student@xforto00 .ssh]$ ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: enp1s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 52:54:00:75:ce:61 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.10.152/24 brd 192.168.10.255 scope global dynamic noprefixroute enp1s0
+       valid_lft 2439sec preferred_lft 2439sec
+    inet6 fe80::5054:ff:fe75:ce61/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+[student@xforto00 .ssh]$ nmap 192.168.10.152/24 -Pn
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:49 EST
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+RTTVAR has grown to over 2.3 seconds, decreasing to 2.0
+
+[student@xforto00 .ssh]$ nmap -sP 192.168.10.152/24 -Pn
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 09:59 EST
+Nmap scan report for 192.168.10.0
+Host is up.
+Nmap scan report for bda-boz.fit.vutbr.cz (192.168.10.1)
+Host is up.
+Nmap scan report for 192.168.10.2
+Host is up.
+Nmap scan report for 192.168.10.3
+Host is up.
+Nmap scan report for 192.168.10.4
+Host is up.
+Nmap scan report for xjuzat00 (192.168.10.5)
+Host is up.
+Nmap scan report for 192.168.10.6
+Host is up.
+Nmap scan report for 192.168.10.7
+Host is up.
+Nmap scan report for 192.168.10.8
+Host is up.
+Nmap scan report for xjahod05 (192.168.10.9)
+Host is up.
+Nmap scan report for 192.168.10.10
+Host is up.
+Nmap scan report for 192.168.10.11
+Host is up.
+Nmap scan report for xmedek07 (192.168.10.12)
+Host is up.
+Nmap scan report for 192.168.10.13
+Host is up.
+Nmap scan report for a6 (192.168.10.14)
+Host is up.
+Nmap scan report for 192.168.10.15
+Host is up.
+Nmap scan report for xhazuc00 (192.168.10.16)
+Host is up.
+Nmap scan report for 192.168.10.17
+Host is up.
+Nmap scan report for xhoffm02 (192.168.10.18)
+Host is up.
+Nmap scan report for 192.168.10.19
+Host is up.
+Nmap scan report for 192.168.10.20
+Host is up.
+Nmap scan report for 192.168.10.21
+Host is up.
+Nmap scan report for 192.168.10.22
+Host is up.
+Nmap scan report for 192.168.10.23
+Host is up.
+Nmap scan report for 192.168.10.24
+Host is up.
+Nmap scan report for xdurin01 (192.168.10.25)
+Host is up.
+Nmap scan report for xkotra02 (192.168.10.26)
+Host is up.
+Nmap scan report for 192.168.10.27
+Host is up.
+Nmap scan report for 192.168.10.28
+Host is up.
+Nmap scan report for xkisst00 (192.168.10.29)
+Host is up.
+Nmap scan report for xvasko16 (192.168.10.30)
+Host is up.
+Nmap scan report for xmajzl02 (192.168.10.31)
+Host is up.
+Nmap scan report for 192.168.10.32
+Host is up.
+Nmap scan report for 192.168.10.33
+Host is up.
+Nmap scan report for 192.168.10.34
+Host is up.
+Nmap scan report for 192.168.10.35
+Host is up.
+Nmap scan report for xnecpa00 (192.168.10.36)
+Host is up.
+Nmap scan report for xsvacd00 (192.168.10.37)
+Host is up.
+Nmap scan report for xbuben05 (192.168.10.38)
+Host is up.
+Nmap scan report for xwysog00 (192.168.10.39)
+Host is up.
+Nmap scan report for 192.168.10.40
+Host is up.
+Nmap scan report for xkoles07 (192.168.10.41)
+Host is up.
+Nmap scan report for 192.168.10.42
+Host is up.
+Nmap scan report for 192.168.10.43
+Host is up.
+Nmap scan report for antonin (192.168.10.44)
+Host is up.
+Nmap scan report for 192.168.10.45
+Host is up.
+Nmap scan report for xhorky28 (192.168.10.46)
+Host is up.
+Nmap scan report for xdvora2t (192.168.10.47)
+Host is up.
+Nmap scan report for xchlad16 (192.168.10.48)
+Host is up.
+Nmap scan report for 192.168.10.49
+Host is up.
+Nmap scan report for 192.168.10.50
+Host is up.
+Nmap scan report for 192.168.10.51
+Host is up.
+Nmap scan report for 192.168.10.52
+Host is up.
+Nmap scan report for 192.168.10.53
+Host is up.
+Nmap scan report for 192.168.10.54
+Host is up.
+Nmap scan report for xvinar00 (192.168.10.55)
+Host is up.
+Nmap scan report for xsetin00 (192.168.10.56)
+Host is up.
+Nmap scan report for 192.168.10.57
+Host is up.
+Nmap scan report for xperes00 (192.168.10.58)
+Host is up.
+Nmap scan report for xdohna43 (192.168.10.59)
+Host is up.
+Nmap scan report for xhusar02 (192.168.10.60)
+Host is up.
+Nmap scan report for 192.168.10.61
+Host is up.
+Nmap scan report for 192.168.10.62
+Host is up.
+Nmap scan report for 192.168.10.63
+Host is up.
+Nmap scan report for xpnyeky00 (192.168.10.64)
+Host is up.
+Nmap scan report for 192.168.10.65
+Host is up.
+Nmap scan report for 192.168.10.66
+Host is up.
+Nmap scan report for 192.168.10.67
+Host is up.
+Nmap scan report for 192.168.10.68
+Host is up.
+Nmap scan report for xminar31 (192.168.10.69)
+Host is up.
+Nmap scan report for xdizov00 (192.168.10.70)
+Host is up.
+Nmap scan report for xresja00 (192.168.10.71)
+Host is up.
+Nmap scan report for xsebel04 (192.168.10.72)
+Host is up.
+Nmap scan report for xducho07 (192.168.10.73)
+Host is up.
+Nmap scan report for xkrajc21 (192.168.10.74)
+Host is up.
+Nmap scan report for xstepa61 (192.168.10.75)
+Host is up.
+Nmap scan report for xbalaz09 (192.168.10.76)
+Host is up.
+Nmap scan report for 192.168.10.77
+Host is up.
+Nmap scan report for 192.168.10.78
+Host is up.
+Nmap scan report for xcoupe01 (192.168.10.79)
+Host is up.
+Nmap scan report for xbartl06 (192.168.10.80)
+Host is up.
+Nmap scan report for 192.168.10.81
+Host is up.
+Nmap scan report for a3 (192.168.10.82)
+Host is up.
+Nmap scan report for xbulic02 (192.168.10.83)
+Host is up.
+Nmap scan report for 192.168.10.84
+Host is up.
+Nmap scan report for 192.168.10.85
+Host is up.
+Nmap scan report for xkrulm00 (192.168.10.86)
+Host is up.
+Nmap scan report for xolejn02 (192.168.10.87)
+Host is up.
+Nmap scan report for xhiadl00 (192.168.10.88)
+Host is up.
+Nmap scan report for xfreyb00 (192.168.10.89)
+Host is up.
+Nmap scan report for xgutte00 (192.168.10.90)
+Host is up.
+Nmap scan report for xsnase06 (192.168.10.91)
+Host is up.
+Nmap scan report for xterbr00 (192.168.10.92)
+Host is up.
+Nmap scan report for xurban70 (192.168.10.93)
+Host is up.
+Nmap scan report for xpojsl00 (192.168.10.94)
+Host is up.
+Nmap scan report for 192.168.10.95
+Host is up.
+Nmap scan report for 192.168.10.96
+Host is up.
+Nmap scan report for xblask04 (192.168.10.97)
+Host is up.
+Nmap scan report for xoltma00 (192.168.10.98)
+Host is up.
+Nmap scan report for xondri05 (192.168.10.99)
+Host is up.
+Nmap scan report for a1 (192.168.10.100)
+Host is up.
+Nmap scan report for 192.168.10.101
+Host is up.
+Nmap scan report for 192.168.10.102
+Host is up.
+Nmap scan report for xmensi13 (192.168.10.103)
+Host is up.
+Nmap scan report for 192.168.10.104
+Host is up.
+Nmap scan report for 192.168.10.105
+Host is up.
+Nmap scan report for xvostr08 (192.168.10.106)
+Host is up.
+Nmap scan report for xtrste00 (192.168.10.107)
+Host is up.
+Nmap scan report for 192.168.10.108
+Host is up.
+Nmap scan report for 192.168.10.109
+Host is up.
+Nmap scan report for 192.168.10.110
+Host is up.
+Nmap scan report for xmelus01 (192.168.10.111)
+Host is up.
+Nmap scan report for 192.168.10.112
+Host is up.
+Nmap scan report for 192.168.10.113
+Host is up.
+Nmap scan report for 192.168.10.114
+Host is up.
+Nmap scan report for 192.168.10.115
+Host is up.
+Nmap scan report for a5 (192.168.10.116)
+Host is up.
+Nmap scan report for xsalgo00 (192.168.10.117)
+Host is up.
+Nmap scan report for 192.168.10.118
+Host is up.
+Nmap scan report for a2 (192.168.10.119)
+Host is up.
+Nmap scan report for xbarta47 (192.168.10.120)
+Host is up.
+Nmap scan report for 192.168.10.121
+Host is up.
+Nmap scan report for 192.168.10.122
+Host is up.
+Nmap scan report for 192.168.10.123
+Host is up.
+Nmap scan report for xvafek00 (192.168.10.124)
+Host is up.
+Nmap scan report for 192.168.10.125
+Host is up.
+Nmap scan report for xhorak69 (192.168.10.126)
+Host is up.
+Nmap scan report for xmatus31 (192.168.10.127)
+Host is up.
+Nmap scan report for 192.168.10.128
+Host is up.
+Nmap scan report for xjohnp00 (192.168.10.129)
+Host is up.
+Nmap scan report for xkamen21 (192.168.10.130)
+Host is up.
+Nmap scan report for xricht29 (192.168.10.131)
+Host is up.
+Nmap scan report for xschle03 (192.168.10.132)
+Host is up.
+Nmap scan report for xduris05 (192.168.10.133)
+Host is up.
+Nmap scan report for 192.168.10.134
+Host is up.
+Nmap scan report for xlitwo00 (192.168.10.135)
+Host is up.
+Nmap scan report for xbilja00 (192.168.10.136)
+Host is up.
+Nmap scan report for xhavli47 (192.168.10.137)
+Host is up.
+Nmap scan report for a4 (192.168.10.138)
+Host is up.
+Nmap scan report for xfolen00 (192.168.10.139)
+Host is up.
+Nmap scan report for xgalik04 (192.168.10.140)
+Host is up.
+Nmap scan report for xproch96 (192.168.10.141)
+Host is up.
+Nmap scan report for xstuch06 (192.168.10.142)
+Host is up.
+Nmap scan report for xbedna72 (192.168.10.143)
+Host is up.
+Nmap scan report for xsekan10 (192.168.10.144)
+Host is up.
+Nmap scan report for sv6 (192.168.10.145)
+Host is up.
+Nmap scan report for xzitka07 (192.168.10.146)
+Host is up.
+Nmap scan report for xgrego20 (192.168.10.147)
+Host is up.
+Nmap scan report for xmrazi00 (192.168.10.148)
+Host is up.
+Nmap scan report for xherrg00 (192.168.10.149)
+Host is up.
+Nmap scan report for sv1 (192.168.10.150)
+Host is up.
+Nmap scan report for xkruty00 (192.168.10.151)
+Host is up.
+Nmap scan report for xforto00 (192.168.10.152)
+Host is up.
+Nmap scan report for xhrivn02 (192.168.10.153)
+Host is up.
+Nmap scan report for xchalo16 (192.168.10.154)
+Host is up.
+Nmap scan report for xmojzi08 (192.168.10.155)
+Host is up.
+Nmap scan report for xwawre00 (192.168.10.156)
+Host is up.
+Nmap scan report for 192.168.10.157
+Host is up.
+Nmap scan report for xcigan09 (192.168.10.158)
+Host is up.
+Nmap scan report for xjulin08 (192.168.10.159)
+Host is up.
+Nmap scan report for xrajec01 (192.168.10.160)
+Host is up.
+Nmap scan report for xklusa14 (192.168.10.161)
+Host is up.
+Nmap scan report for xkopac06 (192.168.10.162)
+Host is up.
+Nmap scan report for xsedla0v (192.168.10.163)
+Host is up.
+Nmap scan report for xkapou04 (192.168.10.164)
+Host is up.
+Nmap scan report for xzaklo01 (192.168.10.165)
+Host is up.
+Nmap scan report for sv2 (192.168.10.166)
+Host is up.
+Nmap scan report for xlorin00 (192.168.10.167)
+Host is up.
+Nmap scan report for 192.168.10.168
+Host is up.
+Nmap scan report for 192.168.10.169
+Host is up.
+Nmap scan report for sv3 (192.168.10.170)
+Host is up.
+Nmap scan report for xkarpi06 (192.168.10.171)
+Host is up.
+Nmap scan report for 192.168.10.172
+Host is up.
+Nmap scan report for 192.168.10.173
+Host is up.
+Nmap scan report for 192.168.10.174
+Host is up.
+Nmap scan report for 192.168.10.175
+Host is up.
+Nmap scan report for xsulaj00 (192.168.10.176)
+Host is up.
+Nmap scan report for 192.168.10.177
+Host is up.
+Nmap scan report for xsesta05 (192.168.10.178)
+Host is up.
+Nmap scan report for xerlic00 (192.168.10.179)
+Host is up.
+Nmap scan report for xtamas01 (192.168.10.180)
+Host is up.
+Nmap scan report for 192.168.10.181
+Host is up.
+Nmap scan report for 192.168.10.182
+Host is up.
+Nmap scan report for xberna18 (192.168.10.183)
+Host is up.
+Nmap scan report for xvosyk00 (192.168.10.184)
+Host is up.
+Nmap scan report for xholub31 (192.168.10.185)
+Host is up.
+Nmap scan report for 192.168.10.186
+Host is up.
+Nmap scan report for 192.168.10.187
+Host is up.
+Nmap scan report for 192.168.10.188
+Host is up.
+Nmap scan report for xmazan09 (192.168.10.189)
+Host is up.
+Nmap scan report for 192.168.10.190
+Host is up.
+Nmap scan report for 192.168.10.191
+Host is up.
+Nmap scan report for 192.168.10.192
+Host is up.
+Nmap scan report for 192.168.10.193
+Host is up.
+Nmap scan report for xsvenk00 (192.168.10.194)
+Host is up.
+Nmap scan report for 192.168.10.195
+Host is up.
+Nmap scan report for 192.168.10.196
+Host is up.
+Nmap scan report for xodehn08 (192.168.10.197)
+Host is up.
+Nmap scan report for 192.168.10.198
+Host is up.
+Nmap scan report for sv4 (192.168.10.199)
+Host is up.
+Nmap scan report for xploci00 (192.168.10.200)
+Host is up.
+Nmap scan report for 192.168.10.201
+Host is up.
+Nmap scan report for 192.168.10.202
+Host is up.
+Nmap scan report for 192.168.10.203
+Host is up.
+Nmap scan report for 192.168.10.204
+Host is up.
+Nmap scan report for 192.168.10.205
+Host is up.
+Nmap scan report for 192.168.10.206
+Host is up.
+Nmap scan report for 192.168.10.207
+Host is up.
+Nmap scan report for 192.168.10.208
+Host is up.
+Nmap scan report for 192.168.10.209
+Host is up.
+Nmap scan report for 192.168.10.210
+Host is up.
+Nmap scan report for 192.168.10.211
+Host is up.
+Nmap scan report for 192.168.10.212
+Host is up.
+Nmap scan report for 192.168.10.213
+Host is up.
+Nmap scan report for 192.168.10.214
+Host is up.
+Nmap scan report for 192.168.10.215
+Host is up.
+Nmap scan report for 192.168.10.216
+Host is up.
+Nmap scan report for 192.168.10.217
+Host is up.
+Nmap scan report for 192.168.10.218
+Host is up.
+Nmap scan report for 192.168.10.219
+Host is up.
+Nmap scan report for 192.168.10.220
+Host is up.
+Nmap scan report for 192.168.10.221
+Host is up.
+Nmap scan report for 192.168.10.222
+Host is up.
+Nmap scan report for 192.168.10.223
+Host is up.
+Nmap scan report for 192.168.10.224
+Host is up.
+Nmap scan report for 192.168.10.225
+Host is up.
+Nmap scan report for 192.168.10.226
+Host is up.
+Nmap scan report for 192.168.10.227
+Host is up.
+Nmap scan report for 192.168.10.228
+Host is up.
+Nmap scan report for 192.168.10.229
+Host is up.
+Nmap scan report for 192.168.10.230
+Host is up.
+Nmap scan report for 192.168.10.231
+Host is up.
+Nmap scan report for 192.168.10.232
+Host is up.
+Nmap scan report for 192.168.10.233
+Host is up.
+Nmap scan report for 192.168.10.234
+Host is up.
+Nmap scan report for 192.168.10.235
+Host is up.
+Nmap scan report for 192.168.10.236
+Host is up.
+Nmap scan report for 192.168.10.237
+Host is up.
+Nmap scan report for 192.168.10.238
+Host is up.
+Nmap scan report for 192.168.10.239
+Host is up.
+Nmap scan report for 192.168.10.240
+Host is up.
+Nmap scan report for 192.168.10.241
+Host is up.
+Nmap scan report for 192.168.10.242
+Host is up.
+Nmap scan report for 192.168.10.243
+Host is up.
+Nmap scan report for 192.168.10.244
+Host is up.
+Nmap scan report for 192.168.10.245
+Host is up.
+Nmap scan report for 192.168.10.246
+Host is up.
+Nmap scan report for 192.168.10.247
+Host is up.
+Nmap scan report for 192.168.10.248
+Host is up.
+Nmap scan report for 192.168.10.249
+Host is up.
+Nmap scan report for 192.168.10.250
+Host is up.
+Nmap scan report for 192.168.10.251
+Host is up.
+Nmap scan report for 192.168.10.252
+Host is up.
+Nmap scan report for 192.168.10.253
+Host is up.
+Nmap scan report for 192.168.10.254
+Host is up.
+Nmap scan report for 192.168.10.255
+Host is up.
+Nmap done: 256 IP addresses (256 hosts up) scanned in 0.03 seconds
+[student@xforto00 .ssh]$ nmap -sP 192.168.10.152/24 -Pn | grep sv
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Nmap scan report for xsvacd00 (192.168.10.37)
+Nmap scan report for sv6 (192.168.10.145)
+Nmap scan report for sv1 (192.168.10.150)
+Nmap scan report for sv2 (192.168.10.166)
+Nmap scan report for sv3 (192.168.10.170)
+Nmap scan report for xsvenk00 (192.168.10.194)
+Nmap scan report for sv4 (192.168.10.199)
+[student@xforto00 .ssh]$ nmap -sT -P0 192.168.10.150
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 10:01 EST
+Nmap scan report for sv1 (192.168.10.150)
+Host is up (0.85s latency).
+Not shown: 998 filtered ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+2049/tcp open  nfs
+
+Nmap done: 1 IP address (1 host up) scanned in 67.26 seconds
+[student@xforto00 .ssh]$ nmap -sU -P0 192.168.10.150
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+You requested a scan type which requires root privileges.
+QUITTING!
+[student@xforto00 .ssh]$ nmap -sT -P0 192.168.10.170
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 10:04 EST
+Nmap scan report for sv3 (192.168.10.170)
+Host is up (0.50s latency).
+Not shown: 996 filtered ports
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+443/tcp  closed https
+3306/tcp open   mysql
+
+Nmap done: 1 IP address (1 host up) scanned in 70.45 seconds
+[student@xforto00 .ssh]$ curl 192.168.10.170:80
+<html>
+        <head>
+            <title>Internal Security@FIT cool page</title>
+        </head>
+        <h1>Hello user <b>Johnny</b>, whoops!</h1>
+        <!-- Admin, please care for absconditum directory -->
+        <p>Please log in:</p>
+        <body>
+        <form method="post" action="process.php">
+        Login: <input type="text" name="login" placeholder="Enter Your Login" /><br />
+        Password : <input type="text" name="password" placeholder="Enter Your Password" /><br />
+        <input type="submit" value="Submit" />
+        </form>
+	<p>Please for admin log in, follow <a href="/admin.html">this link</a>.</p>
+        </body>
+</html>
+
+[student@xforto00 .ssh]$ ls
+authorized_keys  config  known_hosts  known_hosts.old  SV2
+[student@xforto00 .ssh]$ nmap -sT -P0 192.168.10.199
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 10:16 EST
+Nmap scan report for sv4 (192.168.10.199)
+Host is up (0.49s latency).
+Not shown: 998 filtered ports
+PORT   STATE SERVICE
+21/tcp open  ftp
+22/tcp open  ssh
+
+Nmap done: 1 IP address (1 host up) scanned in 70.17 seconds
+[student@xforto00 .ssh]$ ftp 192.168.10.199
+-bash: ftp: command not found
+[student@xforto00 .ssh]$ ssh 192.168.10.199
+The authenticity of host '192.168.10.199 (192.168.10.199)' can't be established.
+ED25519 key fingerprint is SHA256:zKM623g0/tPvfq/Blr/H26Hj1mBwKuvCPRMBEdIyX5Y.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:1: 192.168.10.166
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.10.199' (ED25519) to the list of known hosts.
+student@192.168.10.199's password: 
+Permission denied, please try again.
+student@192.168.10.199's password: 
+Permission denied, please try again.
+student@192.168.10.199's password: 
+Connection closed by 192.168.10.199 port 22
+[student@xforto00 .ssh]$ ftp 192.168.10.199
+-bash: ftp: command not found
+[student@xforto00 .ssh]$ nmap -sT -P0 192.168.10.145
+Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-24 10:24 EST
+Nmap scan report for sv6 (192.168.10.145)
+Host is up (0.00070s latency).
+Not shown: 998 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+5000/tcp open  upnp
+
+Nmap done: 1 IP address (1 host up) scanned in 0.17 seconds
+[student@xforto00 .ssh]$ 
+
+Tajemstvi B_03-12-13-15-01_179115ac45fb6763dc7de63308f867042f7aa3f87746cfa805f7684b8fbb481c
+
+
