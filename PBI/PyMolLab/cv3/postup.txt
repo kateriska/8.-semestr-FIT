@@ -1,0 +1,141 @@
+Postup:
+Stažení experimentu: https://www.ncbi.nlm.nih.gov/sra/SRX13359223[accn] (DNA-seq of rice of Vietnamese Mekong Delta)
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR171/024/SRR17175824/SRR17175824_1.fastq.gz
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR171/024/SRR17175824/SRR17175824_2.fastq.gz
+
+Nalezení potenciálního g-kvadruplexu skriptem parser.py pomocí regexu: G{3,}.{1,7}G{3,}.{1,7}G{3,}.{1,7}G{3,} (viz https://en.wikipedia.org/wiki/G-quadruplex - Quadruplex prediction techniques)
+parser.py vyfiltruje jen ready s tímto potenciálem a zapíše je do _filtered.fastq souboru
+
+Spojení obou částí vyfiltrovaného experimentu do jednoho:
+cat SRR17175824_1_filtered.fastq SRR17175824_1_filtered.fastq > SRR17175824_filtered.fastq
+
+xforto00 $ velveth Assem6 51 -fastq SRR17175824_filtered.fastq
+[0.000000] Reading FastQ file SRR17175824_filtered.fastq;
+[1.159685] 361940 sequences found
+[1.159702] Done
+[1.174823] Reading read set file Assem5/Sequences;
+[1.251422] 361940 sequences found
+[1.587691] Done
+[1.587713] 361940 sequences in total.
+[1.587806] Writing into roadmap file Assem5/Roadmaps...
+[2.124860] Inputting sequences...
+[2.125111] Inputting sequence 0 / 361940
+[3.584284]  === Sequences loaded in 1.459441 s
+[3.585865] Done inputting sequences
+[3.585883] Destroying splay table
+[3.615876] Splay table destroyed
+
+xforto00 $ velvetg Assem6
+[0.000001] Reading roadmap file Assem6/Roadmaps
+[0.783062] 361940 roadmaps read
+[0.783740] Creating insertion markers
+[0.836381] Ordering insertion markers
+[0.927215] Counting preNodes
+[0.970374] 397821 preNodes counted, creating them now
+[2.420794] Adjusting marker info...
+[2.458201] Connecting preNodes
+[2.609816] Cleaning up memory
+[2.611784] Done creating preGraph
+[2.611796] Concatenation...
+[2.727546] Renumbering preNodes
+[2.727568] Initial preNode count 397821
+[2.737962] Destroyed 232060 preNodes
+[2.737986] Concatenation over!
+[2.737992] Clipping short tips off preGraph
+[2.818196] Concatenation...
+[2.848186] Renumbering preNodes
+[2.848208] Initial preNode count 165761
+[2.853918] Destroyed 69725 preNodes
+[2.853941] Concatenation over!
+[2.853946] 45523 tips cut off
+[2.853951] 96036 nodes left
+[2.854182] Writing into pregraph file Assem6/PreGraph...
+[3.334619] Reading read set file Assem6/Sequences;
+[3.407724] 361940 sequences found
+[3.732407] Done
+[4.263967] Reading pre-graph file Assem6/PreGraph
+[4.264111] Graph has 96036 nodes and 361940 sequences
+[4.514367] Scanning pre-graph file Assem6/PreGraph for k-mers
+[4.670651] 5080568 kmers found
+[5.044827] Sorting kmer occurence table ...
+[6.708943] Sorting done.
+[6.708967] Computing acceleration table...
+[6.791360] Computing offsets...
+[6.816954] Ghost Threading through reads 0 / 361940
+[6.818473]  === Ghost-Threaded in 0.001661 s
+[6.818490] Threading through reads 0 / 361940
+[8.671996]  === Threaded in 1.853509 s
+[8.685920] Correcting graph with cutoff 0.200000
+[8.689202] Determining eligible starting points
+[8.770542] Done listing starting nodes
+[8.770568] Initializing todo lists
+[8.784921] Done with initilization
+[8.784946] Activating arc lookup table
+[8.807549] Done activating arc lookup table
+[8.909757] 10000 / 96036 nodes visited
+[9.035968] 20000 / 96036 nodes visited
+[9.095098] 30000 / 96036 nodes visited
+[9.133566] 40000 / 96036 nodes visited
+[9.169586] 50000 / 96036 nodes visited
+[9.187009] 60000 / 96036 nodes visited
+[9.196750] 70000 / 96036 nodes visited
+[9.204644] 80000 / 96036 nodes visited
+[9.209778] 90000 / 96036 nodes visited
+[9.212679] Concatenation...
+[9.218862] Renumbering nodes
+[9.218895] Initial node count 96036
+[9.221423] Removed 11282 null nodes
+[9.221453] Concatenation over!
+[9.221460] Clipping short tips off graph, drastic
+[9.401711] Concatenation...
+[9.411889] Renumbering nodes
+[9.411915] Initial node count 84754
+[9.417848] Removed 61172 null nodes
+[9.417872] Concatenation over!
+[9.417879] 23582 nodes left
+[9.417980] Writing into graph file Assem6/Graph...
+[9.711683] WARNING: NO COVERAGE CUTOFF PROVIDED
+[9.711702] Velvet will probably leave behind many detectable errors
+[9.711709] See manual for instructions on how to set the coverage cutoff parameter
+[9.711714] Removing contigs with coverage < -1.000000...
+[9.713212] Concatenation...
+[9.714118] Renumbering nodes
+[9.714133] Initial node count 23582
+[9.714197] Removed 0 null nodes
+[9.714208] Concatenation over!
+[9.714877] Concatenation...
+[9.715634] Renumbering nodes
+[9.715649] Initial node count 23582
+[9.715708] Removed 0 null nodes
+[9.715718] Concatenation over!
+[9.715724] Clipping short tips off graph, drastic
+[9.716810] Concatenation...
+[9.717631] Renumbering nodes
+[9.717645] Initial node count 23582
+[9.717709] Removed 0 null nodes
+[9.717719] Concatenation over!
+[9.717725] 23582 nodes left
+[9.717731] WARNING: NO EXPECTED COVERAGE PROVIDED
+[9.717737] Velvet will be unable to resolve any repeats
+[9.717747] See manual for instructions on how to set the expected coverage parameter
+[9.717755] Concatenation...
+[9.718492] Renumbering nodes
+[9.718506] Initial node count 23582
+[9.718566] Removed 0 null nodes
+[9.718576] Concatenation over!
+[9.718581] Removing reference contigs with coverage < -1.000000...
+[9.719497] Concatenation...
+[9.720252] Renumbering nodes
+[9.720265] Initial node count 23582
+[9.720327] Removed 0 null nodes
+[9.720337] Concatenation over!
+[9.722209] Writing contigs into Assem6/contigs.fa...
+[9.984231] Writing into stats file Assem6/stats.txt...
+[10.029782] Writing into graph file Assem6/LastGraph...
+Final graph has 23582 nodes and n50 of 172, max 572, total 3027628, using 0/361940 reads
+
+N50: 172
+Number of contigs in contigs.fa (Assem6 $ grep -c NODE contigs.fa): 18299
+Largest contig length: 572
+
+contigs_analyzer.py - analýza získaného souboru contigs.fa - výsledkem csv soubor s délkami jednotlivých sekvencí a procentuálním zastoupením A,G,T,C bazí v dané sekvenci
