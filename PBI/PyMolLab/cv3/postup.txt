@@ -9,6 +9,8 @@ parser.py vyfiltruje jen ready s tímto potenciálem a zapíše je do _filtered.
 Spojení obou částí vyfiltrovaného experimentu do jednoho:
 cat SRR17175824_1_filtered.fastq SRR17175824_1_filtered.fastq > SRR17175824_filtered.fastq
 
+(Archiv s celou Assem6 složkou zde: https://drive.google.com/file/d/1ktt3-CRI7IZFi_TpgD8mZud_qVVEqwxt/view?usp=sharing)
+
 xforto00 $ velveth Assem6 51 -fastq SRR17175824_filtered.fastq
 [0.000000] Reading FastQ file SRR17175824_filtered.fastq;
 [1.159685] 361940 sequences found
