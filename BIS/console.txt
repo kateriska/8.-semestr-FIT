@@ -1,0 +1,195 @@
+xforto00@merlin: ~$ ssh student@bis.fit.vutbr.cz -P 65152 -i id_rsa_bis.txt
+ssh: connect to host bis.fit.vutbr.cz port 22: No route to host
+xforto00@merlin: ~$ ssh student@bis.fit.vutbr.cz -p 65152 -i id_rsa_bis.txt
+Last login: Tue Dec 21 04:28:21 2021 from 147.229.176.19
+[student@xforto00 ~]$ pwd
+/home/student
+[student@xforto00 ~]$ logout
+Connection to bis.fit.vutbr.cz closed.
+xforto00@merlin: ~$ scp -i /homes/eva/xf/xforto00/id_rsa_bis.txt -P 65152 /homes/eva/xf/xforto00/nfs_source/nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm student@bis.fit.vutbr.cz:/home/student
+nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm     100%  422KB  56.4MB/s   00:00
+xforto00@merlin: ~$ ssh student@bis.fit.vutbr.cz -p 65152 -i id_rsa_bis.txt
+Last login: Tue Dec 21 04:55:21 2021 from 147.229.176.19
+[student@xforto00 ~]$ l
+-bash: l: command not found
+[student@xforto00 ~]$ ls
+ftp_server_files  nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+id_rsa_bis.txt    sv2_files
+[student@xforto00 ~]$ rpm -i nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+error: Failed dependencies:
+	gssproxy >= 0.7.0-3 is needed by nfs-utils-1:2.5.4-2.rc3.fc35.x86_64
+	keyutils is needed by nfs-utils-1:2.5.4-2.rc3.fc35.x86_64
+	quota is needed by nfs-utils-1:2.5.4-2.rc3.fc35.x86_64
+	rpcbind is needed by nfs-utils-1:2.5.4-2.rc3.fc35.x86_64
+[student@xforto00 ~]$ ls
+ftp_server_files                  nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+gssproxy-0.8.4-4.fc35.x86_64.rpm  sv2_files
+id_rsa_bis.txt
+[student@xforto00 ~]$ rpm -i gssproxy-0.8.4-4.fc35.x86_64.rpm
+error: Failed dependencies:
+	libverto-module-base is needed by gssproxy-0.8.4-4.fc35.x86_64
+[student@xforto00 ~]$ ls
+ftp_server_files                  libverto-libevent-0.3.2-2.fc35.x86_64.rpm
+gssproxy-0.8.4-4.fc35.x86_64.rpm  nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+id_rsa_bis.txt                    sv2_files
+[student@xforto00 ~]$ rpm -i libverto-libevent-0.3.2-2.fc35.x86_64.rpm
+error: can't create transaction lock on /var/lib/rpm/.rpm.lock (Permission denied)
+[student@xforto00 ~]$ sudo rpm -i libverto-libevent-0.3.2-2.fc35.x86_64.rpm
+[student@xforto00 ~]$ sudo rpm -i gssproxy-0.8.4-4.fc35.x86_64.rpm
+[student@xforto00 ~]$ ls
+ftp_server_files                  libverto-libevent-0.3.2-2.fc35.x86_64.rpm
+gssproxy-0.8.4-4.fc35.x86_64.rpm  nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+id_rsa_bis.txt                    sv2_files
+keyutils-1.6.1-3.fc35.x86_64.rpm
+[student@xforto00 ~]$ sudo rpm -i keyutils-1.6.1-3.fc35.x86_64.rpm
+[student@xforto00 ~]$ ls
+ftp_server_files                  libverto-libevent-0.3.2-2.fc35.x86_64.rpm
+gssproxy-0.8.4-4.fc35.x86_64.rpm  nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+id_rsa_bis.txt                    quota-4.06-6.fc35.x86_64.rpm
+keyutils-1.6.1-3.fc35.x86_64.rpm  sv2_files
+[student@xforto00 ~]$ rpm -i quota-4.06-6.fc35.x86_64.rpm
+error: Failed dependencies:
+	quota-nls = 1:4.06-6.fc35 is needed by quota-1:4.06-6.fc35.x86_64
+[student@xforto00 ~]$ sudo rpm -i quota-4.06-6.fc35.x86_64.rpm
+error: Failed dependencies:
+	quota-nls = 1:4.06-6.fc35 is needed by quota-1:4.06-6.fc35.x86_64
+[student@xforto00 ~]$ ls
+ftp_server_files
+gssproxy-0.8.4-4.fc35.x86_64.rpm
+id_rsa_bis.txt
+keyutils-1.6.1-3.fc35.x86_64.rpm
+libverto-libevent-0.3.2-2.fc35.x86_64.rpm
+nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+quota-4.06-6.fc35.x86_64.rpm
+quota-nls-4.06-6.fc35.noarch.rpm
+sv2_files
+[student@xforto00 ~]$ rpm -i quota-nls-4.06-6.fc35.noarch.rpm
+error: can't create transaction lock on /var/lib/rpm/.rpm.lock (Permission denied)
+[student@xforto00 ~]$ sudo rpm -i quota-nls-4.06-6.fc35.noarch.rpm
+[student@xforto00 ~]$ sudo rpm -i quota-4.06-6.fc35.x86_64.rpm
+[student@xforto00 ~]$ ls
+ftp_server_files
+gssproxy-0.8.4-4.fc35.x86_64.rpm
+id_rsa_bis.txt
+keyutils-1.6.1-3.fc35.x86_64.rpm
+libverto-libevent-0.3.2-2.fc35.x86_64.rpm
+nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+quota-4.06-6.fc35.x86_64.rpm
+quota-nls-4.06-6.fc35.noarch.rpm
+rpcbind-1.2.6-1.fc35.x86_64.rpm
+sv2_files
+[student@xforto00 ~]$ sudo rpm -i rpcbind-1.2.6-1.fc35.x86_64.rpm
+[student@xforto00 ~]$ rpm -i nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+error: can't create transaction lock on /var/lib/rpm/.rpm.lock (Permission denied)
+[student@xforto00 ~]$ sudo rpm -i nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+[student@xforto00 ~]$ mkdir nfs_mount
+[student@xforto00 ~]$ pwd
+/home/student
+[student@xforto00 ~]$ mount -t nfs 192.168.10.150:/home/shared_dir nfs_mount/
+mount.nfs: failed to apply fstab options
+
+[student@xforto00 ~]$ ls
+ftp_server_files
+gssproxy-0.8.4-4.fc35.x86_64.rpm
+id_rsa_bis.txt
+keyutils-1.6.1-3.fc35.x86_64.rpm
+libverto-libevent-0.3.2-2.fc35.x86_64.rpm
+nfs_mount
+nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+quota-4.06-6.fc35.x86_64.rpm
+quota-nls-4.06-6.fc35.noarch.rpm
+rpcbind-1.2.6-1.fc35.x86_64.rpm
+sv2_files
+[student@xforto00 ~]$ cd nfs_mount
+[student@xforto00 nfs_mount]$ ls
+[student@xforto00 nfs_mount]$ cd ..
+[student@xforto00 ~]$ sudo mount -t nfs 192.168.10.150:/home/shared_dir nfs_mount/
+[student@xforto00 ~]$ ls
+ftp_server_files
+gssproxy-0.8.4-4.fc35.x86_64.rpm
+id_rsa_bis.txt
+keyutils-1.6.1-3.fc35.x86_64.rpm
+libverto-libevent-0.3.2-2.fc35.x86_64.rpm
+nfs_mount
+nfs-utils-2.5.4-2.rc3.fc35.x86_64.rpm
+quota-4.06-6.fc35.x86_64.rpm
+quota-nls-4.06-6.fc35.noarch.rpm
+rpcbind-1.2.6-1.fc35.x86_64.rpm
+sv2_files
+[student@xforto00 ~]$ cd nfs_mount
+-bash: cd: nfs_mount: Permission denied
+[student@xforto00 ~]$ sudo su
+[root@xforto00 student]# cd nfs_mount
+[root@xforto00 nfs_mount]# ls
+'*'           108200.jpg   111601.jpg   115101.jpg   117801.jpg
+ 101403.jpg   108203.jpg   112301.jpg   115200.jpg   117802.jpg
+ 104600.jpg   109501.jpg   112302.jpg   115400.jpg   private.key
+ 108000.jpg   110901.jpg   112400.jpg   115401.jpg   secret
+ 108001.jpg   111002.jpg   112403.jpg   115700.jpg
+ 108102.jpg   111101.jpg   112404.jpg   115701.jpg
+ 108103.jpg   111300.jpg   112408.jpg   115702.jpg
+ 108104.jpg   111600.jpg   114501.jpg   117800.jpg
+[root@xforto00 nfs_mount]# cat secret
+Tajemstvi H_21-12-11-15-02_ff317df94b370abe11561064b3240181163e293d4e33062d2f8252bd26357f50
+[root@xforto00 nfs_mount]# cat private.key
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+
+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
+=KR9g
+-----END PGP PRIVATE KEY BLOCK-----
+passphrase is "123"
+[root@xforto00 nfs_mount]#
