@@ -1,0 +1,40 @@
+Postup:
+Stáhnutí výstupu ze sekvenátoru SRR1777124_1.fastq.gz (https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR1777124) - RNA-seq, Homo sapiens
+Využití sequence.txt z druhého cvičení: chr1:153,350,000-153,633,000 (gene cluster S100A)
+Vytvoření indexu:
+bowtie2-build sequence.fasta S100_cluster_mapped
+Mapování na referenční genom:
+studentx99@hedron:~/xforto00$ bowtie2 -x S100_cluster_mapped -U SRR1777124_1.fastq -S SRR1777124_1_mapped.sam
+6986571 reads; of these:
+6986571 (100.00%) were unpaired; of these:
+6971300 (99.78%) aligned 0 times
+6961 (0.10%) aligned exactly 1 time
+8310 (0.12%) aligned >1 times
+0.22% overall alignment rate
+
+Konverze do vizualizace v IGV - převod do BAM formátu a tvorba indexu (viz https://scilifelab.github.io/courses/rnaseq/labs/mapping_reads)
+studentx99@hedron:~/xforto00$ samtools sort -o SRR1777124_1_mapped.bam SRR1777124_1_mapped.sam
+[bam_sort_core] merging from 2 files and 1 in-memory blocks...
+studentx99@hedron:~/xforto00$ samtools index SRR1777124_1_mapped.bam
+
+Vizualizace v IGV - nahrání referenčního genomu (sequence.txt), bam a bai souboru - viz screenshot Screen1, Screen2
+
+DNA seq:
+Stáhnutí výstupu ze sekvenátoru SRR3213016.fastq.gz (https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR3213016) - DNA-seq, Homo sapiens
+Vytvoření indexu stejně jak výše
+studentx99@hedron:~/xforto00$ bowtie2 -x S100_cluster_mapped -U SRR3213016.fastq -S SRR3213016_mapped.sam
+12369232 reads; of these:
+  12369232 (100.00%) were unpaired; of these:
+    11971214 (96.78%) aligned 0 times
+    194795 (1.57%) aligned exactly 1 time
+    203223 (1.64%) aligned >1 times
+3.22% overall alignment rate
+
+Konverze do BAM formátu a tvorba indexu stejná jak výše
+
+studentx99@hedron:~/xforto00$ samtools sort -o SRR3213016_mapped.bam SRR3213016_mapped.sam
+[bam_sort_core] merging from 5 files and 1 in-memory blocks...
+studentx99@hedron:~/xforto00$ samtools index  SRR3213016_mapped.bam
+
+
+Vizualizace v IGV - nahrání referenčního genomu (sequence.txt), bam a bai souboru - viz screenshot Screen3, Screen4
