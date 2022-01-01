@@ -1,0 +1,8 @@
+receptor = prot1_prepared.pdbqt
+exhaustiveness  = 8
+center_x = 16.0724
+center_y = 26.5036
+center_z = 3.7732
+size_x = 25.0
+size_y = 25.0
+size_z = 25.0
