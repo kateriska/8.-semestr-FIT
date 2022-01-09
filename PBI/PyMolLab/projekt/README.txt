@@ -15,5 +15,6 @@ Generated files from docking are: conf.txt, prot1_uff_E=373.91_out.pdbqt and pro
 
 Analyze docking results:
 In PyMol run analyze_bindings.py - there are 9 states of possible setting of protein and ligand
-Nearby aminoacids and their indexes in fasta sequence of protein are printed in console
+Nearby aminoacids and their indexes in fasta sequence of protein are printed in console and also to file nearby_aminoacids.csv
 see connected_aminoacids_to_ligand.PNG how to figure out bonded protein and ligand atoms and position of these nearby aminoacids in fasta sequnce of protein
+see measure_distances.PNG to see example of measured distances of State 1
